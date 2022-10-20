@@ -70,7 +70,7 @@ function stream(port::Ptr{LibSerialPort.Lib.SPPort}, CPCType::Symbol, file::Stri
             open(file, "a") do io
                 write(io, tc * "," * str)
             end
-            push!(dataBuffer, tc * "," * str)
+            push!(dataBuffer, "RALL," * tc * "," * str)
         catch
             println("From CondensationParticleCounters.jl: I fail")
         end
@@ -82,6 +82,15 @@ function stream(port::Ptr{LibSerialPort.Lib.SPPort}, CPCType::Symbol, file::Stri
     end
 
     wait(Godot)
+end
+
+function get_current_record()
+    try 
+        x = dataBuffer[end]
+        ifelse((x[end] == '\r'), x, missing) 
+    catch
+        missing
+    end
 end
 
 end 
