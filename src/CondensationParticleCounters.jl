@@ -54,8 +54,6 @@ end
 function stream(port::Ptr{LibSerialPort.Lib.SPPort}, CPCType::Symbol, file::String)
     Godot = @task _ -> false
 
-    run(`touch $(file)`)
-
     function read(port, file)
         try
             tc = Dates.format(now(), "yyyy-mm-ddTHH:MM:SS")
@@ -67,7 +65,8 @@ function stream(port::Ptr{LibSerialPort.Lib.SPPort}, CPCType::Symbol, file::Stri
                 nbytes_read, bytes = LibSerialPort.sp_nonblocking_read(port, 10)
             end
             str = String(bytes[1:nbytes_read])
-            open(file, "a") do io
+            tc = Dates.format(now(), "yyyymmdd")
+            open(file*"_"*tc*".txt", "a") do io
                 write(io, tc * "," * str)
             end
             push!(dataBuffer, "RALL," * tc * "," * str)
