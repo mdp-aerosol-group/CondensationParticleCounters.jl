@@ -73,7 +73,6 @@ function stream(port::Ptr{LibSerialPort.Lib.SPPort}, CPCType::Symbol, file::Stri
                  nbytes_read, bytes = LibSerialPort.sp_nonblocking_read(port, 1000)
             end
             str = String(bytes[1:nbytes_read])
-            tc = Dates.format(now(), "yyyymmdd")
             open(file*"_"*tc*".txt", "a") do io
                 write(io, tc * "," * str)
             end
