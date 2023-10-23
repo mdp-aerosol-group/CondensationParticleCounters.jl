@@ -26,6 +26,12 @@ function get_config(CPCType)
         dbits = 8
         parity = SP_PARITY_NONE
         sbits = 1
+     elseif (CPCType == :MAGIC)
+        q = 0.3
+        baud = 115200
+        dbits = 8
+        parity = SP_PARITY_NONE
+        sbits = 1
     end
 
     return (q = q, baud = baud, dbits = dbits, parity = parity, sbits = sbits)
@@ -60,7 +66,7 @@ function stream(port::Ptr{LibSerialPort.Lib.SPPort}, CPCType::Symbol, file::Stri
             if (CPCType == :TSI3771) || (CPCType == :TSI3772) || (CPCType == :TSI3776C)
                 LibSerialPort.sp_nonblocking_write(port, "RALL\r")
                 nbytes_read, bytes = LibSerialPort.sp_nonblocking_read(port, 100)
-            elseif  (CPCType == :TSI3022) || (CPCType == :TSI3025)
+            elseif  (CPCType == :TSI3022) || (CPCType == :TSI3025) || (CPCType == :MAGIC)
                 LibSerialPort.sp_nonblocking_write(port, "RD\r")
                 nbytes_read, bytes = LibSerialPort.sp_nonblocking_read(port, 10)
             end
