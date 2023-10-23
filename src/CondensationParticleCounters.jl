@@ -68,7 +68,7 @@ function stream(port::Ptr{LibSerialPort.Lib.SPPort}, CPCType::Symbol, file::Stri
                 nbytes_read, bytes = LibSerialPort.sp_nonblocking_read(port, 100)
             elseif  (CPCType == :TSI3022) || (CPCType == :TSI3025) || (CPCType == :MAGIC)
                 LibSerialPort.sp_nonblocking_write(port, "RD\r")
-                nbytes_read, bytes = LibSerialPort.sp_nonblocking_read(port, 10)
+                nbytes_read, bytes = LibSerialPort.sp_nonblocking_read(port, 1000)
             end
             str = String(bytes[1:nbytes_read])
             tc = Dates.format(now(), "yyyymmdd")
