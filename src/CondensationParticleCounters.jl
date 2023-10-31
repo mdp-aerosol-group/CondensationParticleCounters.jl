@@ -76,11 +76,13 @@ function stream(port::Ptr{LibSerialPort.Lib.SPPort}, CPCType::Symbol, file::Stri
             tc1 = Dates.format(now(), "yyyymmdd")
             if (CPCType == :MAGIC)
                 open(file*"_"*tc1*".txt", "a") do io
-                write(io,  str)
+                    write(io,  str)
+                end
                 push!(dataBuffer, str)
             else
                 open(file*"_"*tc1*".txt", "a") do io
-                write(io, tc * "," * str)
+                    write(io, tc * "," * str)
+                end
                 push!(dataBuffer, "RALL," * tc * "," * str)
             end
         catch
