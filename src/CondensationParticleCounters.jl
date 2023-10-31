@@ -74,10 +74,15 @@ function stream(port::Ptr{LibSerialPort.Lib.SPPort}, CPCType::Symbol, file::Stri
             end
             str = String(bytes[1:nbytes_read])
             tc1 = Dates.format(now(), "yyyymmdd")
-            open(file*"_"*tc1*".txt", "a") do io
+            if (CPCType == :MAGIC)
+                open(file*"_"*tc1*".txt", "a") do io
+                write(io,  str)
+                push!(dataBuffer, str)
+            else
+                open(file*"_"*tc1*".txt", "a") do io
                 write(io, tc * "," * str)
+                push!(dataBuffer, "RALL," * tc * "," * str)
             end
-            push!(dataBuffer, "RALL," * tc * "," * str)
         catch
             println("From CondensationParticleCounters.jl: I fail")
         end
