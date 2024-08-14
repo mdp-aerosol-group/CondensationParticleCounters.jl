@@ -69,7 +69,7 @@ function stream(port::Ptr{LibSerialPort.Lib.SPPort}, CPCType::Symbol, file::Stri
     function read(port, file)
         try
             tc = Dates.format(now(), "yyyymmddTHH:MM:SS")
-            if (CPCType == :TSI3771) || (CPCType == :TSI3772) || (CPCType == :TSI3776C)
+            if (CPCType == :TSI3771) || (CPCType == :TSI3772) || (CPCType == :TSI3776C) || (CPCType == :TSI3789)
                 LibSerialPort.sp_nonblocking_write(port, "RALL\r")
                 nbytes_read, bytes = LibSerialPort.sp_nonblocking_read(port, 100)
             elseif  (CPCType == :TSI3022) || (CPCType == :TSI3025) 
