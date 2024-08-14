@@ -14,8 +14,14 @@ function get_config(CPCType)
         dbits = 7
         parity = SP_PARITY_EVEN
         sbits = 1
-    elseif (CPCType == :TSI3771) || (CPCType == :TSI3772) || (CPCType == :TSI3776C)
+    elseif (CPCType == :TSI3771) || (CPCType == :TSI3772) || (CPCType == :TSI3776C) 
         q = 1.0
+        baud = 115200
+        dbits = 8
+        parity = SP_PARITY_NONE
+        sbits = 1
+    elseif (CPCType == :TSI3789)
+        q = 0.3
         baud = 115200
         dbits = 8
         parity = SP_PARITY_NONE
