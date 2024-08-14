@@ -1,6 +1,6 @@
 name = "CondensationParticleCounters"
 uuid = "2adfc2c7-75f2-4d70-8938-a2b68ce5239c"
-authors = ["Markus Petters <mdpetter@ncsu.edu>"]
+authors = ["Markus Petters <markus.petters@ucr.edu>"]
 version = "0.1.0"
 
 [deps]
